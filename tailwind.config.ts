@@ -48,16 +48,15 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
-          "Inter",
+          "Urbanist",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",
-          "Segoe UI",
-          "Roboto",
           "sans-serif",
         ],
         display: [
-          "Inter",
+          "Big Shoulders Display",
+          "Urbanist",
           "ui-sans-serif",
           "system-ui",
           "sans-serif",
