@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { TopBar } from "@/components/shell/TopBar";
 import { Sidebar } from "@/components/shell/Sidebar";
+import { KpiStrip } from "@/components/shell/KpiStrip";
 import { CopilotPanel } from "@/components/copilot/CopilotPanel";
 
 export function AppShell() {
@@ -19,7 +20,8 @@ export function AppShell() {
       {/* Right: top bar + content stacked */}
       <div className="flex flex-col flex-1 overflow-hidden">
         <TopBar onMenuClick={() => setMobileOpen(true)} />
-        <main className="flex-1 overflow-y-auto scroll-thin flex flex-col bg-white">
+        <main className="flex-1 overflow-hidden flex flex-col mesh-hero">
+          <KpiStrip />
           <CopilotPanel />
         </main>
       </div>

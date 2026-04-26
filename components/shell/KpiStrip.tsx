@@ -46,12 +46,12 @@ const accentClass: Record<Accent, string> = {
 
 export function KpiStrip() {
   return (
-    <div className="flex gap-3 px-4 lg:px-6 pt-4 pb-2 overflow-x-auto scroll-thin shrink-0">
+    <div className="flex gap-3 px-4 lg:px-6 pt-4 pb-4 overflow-x-auto scroll-thin shrink-0 border-b border-ink-100/70">
       {KPIS.map((kpi) => (
         <div
           key={kpi.label}
           className={clsx(
-            "min-w-[160px] flex-shrink-0 bg-white rounded-2xl border border-ink-100 shadow-card px-4 py-3",
+            "min-w-[160px] flex-shrink-0 bg-white/80 backdrop-blur-sm rounded-2xl border border-ink-100 shadow-card px-4 py-3",
             "motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-pop transition-all duration-150 cursor-default"
           )}
         >

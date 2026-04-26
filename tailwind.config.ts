@@ -55,7 +55,7 @@ const config: Config = {
           "sans-serif",
         ],
         display: [
-          "Big Shoulders Display",
+          "Big Shoulders",
           "Urbanist",
           "ui-sans-serif",
           "system-ui",

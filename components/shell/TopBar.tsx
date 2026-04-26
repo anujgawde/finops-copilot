@@ -31,25 +31,6 @@ export function TopBar({ onMenuClick }: Props) {
         <span className="text-xs text-ink-400">AWS · 12 accounts</span>
         <ChevronDown size={13} className="text-ink-300" />
       </button>
-
-      {/* Right cluster */}
-      <div className="ml-auto flex items-center gap-2">
-        <span className="text-xs font-medium text-mint-700 bg-mint-50 border border-mint-100 rounded-md px-2 py-1 hidden sm:inline">
-          MTD $312K
-        </span>
-        <span className="text-xs font-medium text-electric-600 bg-electric-50 border border-electric-100 rounded-md px-2 py-1 hidden sm:inline">
-          ▼ Saved $9.8K/mo
-        </span>
-        <div className="w-7 h-7 rounded-full bg-mint-500 text-white text-[11px] font-semibold flex items-center justify-center select-none tracking-wide">
-          AG
-        </div>
-        <button
-          className="p-1.5 rounded-lg text-ink-400 hover:text-ink-600 hover:bg-[#F5F5F5] transition-colors"
-          aria-label="Help"
-        >
-          <CircleHelp size={18} />
-        </button>
-      </div>
     </header>
   );
 }

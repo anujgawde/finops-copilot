@@ -47,8 +47,8 @@ export function SuggestionChips({ onSelect }: Props) {
           className={clsx(
             "flex-1 text-left px-4 py-4 rounded-xl border text-sm font-medium transition-all duration-200 bg-white",
             "text-ink-700 border-ink-200",
-            "hover:border-mint-300 hover:text-ink-900 hover:shadow-card hover:-translate-y-0.5",
-            focused === idx && "border-mint-300 shadow-card -translate-y-0.5",
+            "hover:border-mint-300 hover:text-ink-900 hover:shadow-card motion-safe:hover:-translate-y-0.5",
+            focused === idx && "border-mint-300 shadow-card motion-safe:-translate-y-0.5",
           )}
         >
           <span className="block text-base mb-1" aria-hidden>{emoji}</span>

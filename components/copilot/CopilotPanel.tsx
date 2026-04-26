@@ -20,7 +20,7 @@ export function CopilotPanel() {
   };
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 mesh-hero relative">
+    <div className="flex-1 flex flex-col min-h-0 relative">
       {isEmpty ? (
         <div className="flex-1 flex flex-col items-center justify-center px-6 gap-8">
           <div className="text-center max-w-xl">

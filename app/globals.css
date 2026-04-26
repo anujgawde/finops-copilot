@@ -2,23 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Big+Shoulders+Display:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Big+Shoulders:wght@900&display=swap");
 
 :root {
-  --bg: #F7F8FA;
-  --surface: #FFFFFF;
-  --ink-900: #0A0E1C;
-  --ink-700: #1D2434;
-  --ink-500: #4B546B;
-  --ink-300: #B5BCCB;
-  --mint-500: #15A365;
-  --mint-400: #2FC37F;
-  --mint-100: #CDF5E1;
-  --electric-300: #9EF94E;
-  --electric-400: #7FEB1F;
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --ink-900: #0a0e1c;
+  --ink-700: #1d2434;
+  --ink-500: #4b546b;
+  --ink-300: #b5bccb;
+  --mint-500: #15a365;
+  --mint-400: #2fc37f;
+  --mint-100: #cdf5e1;
+  --electric-300: #9ef94e;
+  --electric-400: #7feb1f;
 }
 
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   background: var(--bg);
@@ -34,8 +35,13 @@ html, body {
 }
 
 /* Pretty custom scrollbars inside the copilot */
-.scroll-thin::-webkit-scrollbar { width: 8px; height: 8px; }
-.scroll-thin::-webkit-scrollbar-track { background: transparent; }
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
 .scroll-thin::-webkit-scrollbar-thumb {
   background: rgba(75, 84, 107, 0.22);
   border-radius: 999px;
@@ -47,9 +53,21 @@ html, body {
 /* Mesh gradient glow used behind the copilot hero */
 .mesh-hero {
   background:
-    radial-gradient(1200px 480px at 85% -10%, rgba(158, 249, 78, 0.22), transparent 60%),
-    radial-gradient(900px 420px at 10% 10%, rgba(47, 195, 127, 0.18), transparent 60%),
-    radial-gradient(900px 380px at 50% 100%, rgba(21, 163, 101, 0.08), transparent 60%);
+    radial-gradient(
+      1200px 480px at 85% -10%,
+      rgba(158, 249, 78, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 420px at 10% 10%,
+      rgba(47, 195, 127, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 380px at 50% 100%,
+      rgba(21, 163, 101, 0.08),
+      transparent 60%
+    );
 }
 
 .token-shimmer {
@@ -68,9 +86,9 @@ kbd {
   font-size: 11px;
   padding: 2px 6px;
   border-radius: 6px;
-  border: 1px solid #D9DDE6;
-  background: #FFFFFF;
-  color: #4B546B;
+  border: 1px solid #d9dde6;
+  background: #ffffff;
+  color: #4b546b;
   box-shadow: 0 1px 0 rgba(10, 14, 28, 0.04);
 }
 
@@ -80,7 +98,7 @@ kbd {
   display: inline-block;
   width: 7px;
   height: 1em;
-  background: #0A0E1C;
+  background: #0a0e1c;
   margin-left: 2px;
   vertical-align: -2px;
   animation: cursor-blink 1s steps(2) infinite;
@@ -95,4 +113,19 @@ kbd {
 
 button {
   font-family: inherit;
+}
+
+/* Reduce all motion to opacity-only for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .caret::after {
+    animation: none;
+    opacity: 1;
+  }
 }
