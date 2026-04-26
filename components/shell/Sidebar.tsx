@@ -21,18 +21,19 @@ import clsx from "clsx";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import { PumpLogo } from "@/components/PumpLogo";
+import type { ViewId } from "@/lib/useView";
 
 type NavItem = {
   id: string;
   label: string;
   Icon: LucideIcon;
-  active?: boolean;
+  interactive?: boolean;
   badge?: string;
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { id: "overview",      label: "Overview",      Icon: LayoutDashboard },
-  { id: "ask-pump",      label: "Ask Pump",       Icon: Sparkles, active: true, badge: "NEW" },
+  { id: "overview",      label: "Overview",      Icon: LayoutDashboard, interactive: true },
+  { id: "ask-pump",      label: "Ask Pump",       Icon: Sparkles, interactive: true, badge: "NEW" },
   { id: "optimizations", label: "Optimizations",  Icon: WandSparkles },
   { id: "savings-plans", label: "Savings Plans",  Icon: PiggyBank },
   { id: "spend",         label: "Spend",          Icon: ChartLine },
@@ -42,32 +43,44 @@ const NAV_ITEMS: NavItem[] = [
 // All icons/logo sit at 16px from the sidebar edge:
 // header px-4 (16px), nav px-2 + item px-2 (16px), footer px-2 + item px-2 (16px)
 
-function NavLink({ item, collapsed }: { item: NavItem; collapsed: boolean }) {
+function NavLink({
+  item,
+  collapsed,
+  active,
+  onClick,
+}: {
+  item: NavItem;
+  collapsed: boolean;
+  active: boolean;
+  onClick?: () => void;
+}) {
+  const interactive = !!item.interactive;
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      aria-disabled={!item.active}
-      aria-current={item.active ? "page" : undefined}
+    <button
+      type="button"
+      onClick={interactive ? onClick : undefined}
+      aria-disabled={!interactive}
+      aria-current={active ? "page" : undefined}
       title={collapsed ? item.label : undefined}
       className={clsx(
-        "flex items-center gap-3 py-2 rounded-lg transition-colors cursor-default select-none",
+        "w-full flex items-center gap-3 py-2 rounded-lg transition-colors select-none",
         collapsed ? "justify-center px-2" : "px-2",
-        item.active
+        active
           ? "bg-[#EFEFEF] text-ink-900 font-semibold"
           : "text-ink-500 hover:bg-[#F5F5F5] hover:text-ink-700",
+        !interactive && "cursor-default",
       )}
     >
       <item.Icon size={17} className="shrink-0" />
       {!collapsed && (
-        <span className="flex-1 text-sm truncate whitespace-nowrap">{item.label}</span>
+        <span className="flex-1 text-sm truncate whitespace-nowrap text-left">{item.label}</span>
       )}
       {!collapsed && item.badge && (
         <span className="text-[10px] font-semibold bg-mint-100 text-mint-700 rounded-full px-1.5 py-0.5 leading-none uppercase tracking-wide">
           {item.badge}
         </span>
       )}
-    </div>
+    </button>
   );
 }
 
@@ -115,9 +128,14 @@ function UserPopover({ onClose }: { onClose: () => void }) {
   );
 }
 
-type Props = { mobileOpen: boolean; onMobileClose: () => void };
+type Props = {
+  mobileOpen: boolean;
+  onMobileClose: () => void;
+  activeView: ViewId;
+  onNavigate: (id: ViewId) => void;
+};
 
-export function Sidebar({ mobileOpen, onMobileClose }: Props) {
+export function Sidebar({ mobileOpen, onMobileClose, activeView, onNavigate }: Props) {
   const [collapsed, setCollapsed] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const reduced = useReducedMotion();
@@ -209,7 +227,13 @@ export function Sidebar({ mobileOpen, onMobileClose }: Props) {
         {/* Nav — container px-2, items px-2 → icons at 16px from edge */}
         <nav className="flex-1 px-2 py-3 flex flex-col gap-0.5 overflow-hidden">
           {NAV_ITEMS.map((item) => (
-            <NavLink key={item.id} item={item} collapsed={collapsed} />
+            <NavLink
+              key={item.id}
+              item={item}
+              collapsed={collapsed}
+              active={item.id === activeView}
+              onClick={() => onNavigate(item.id as ViewId)}
+            />
           ))}
         </nav>
 
@@ -243,7 +267,16 @@ export function Sidebar({ mobileOpen, onMobileClose }: Props) {
               </div>
               <nav className="flex-1 px-2 py-3 flex flex-col gap-0.5">
                 {NAV_ITEMS.map((item) => (
-                  <NavLink key={item.id} item={item} collapsed={false} />
+                  <NavLink
+                    key={item.id}
+                    item={item}
+                    collapsed={false}
+                    active={item.id === activeView}
+                    onClick={() => {
+                      onNavigate(item.id as ViewId);
+                      onMobileClose();
+                    }}
+                  />
                 ))}
               </nav>
               <div className="border-t border-[#E5E5E5] px-2 py-2">
